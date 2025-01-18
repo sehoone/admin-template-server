@@ -1,0 +1,9 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sehoon.admintempleteserver.module.sample.mapper.SampleMapper">
+    <select id="selectSampleById" parameterType="int" resultType="map">
+        SELECT * FROM sehoon.USER_BASE WHERE USER_NO = #{id}
+    </select>
+</mapper>
