@@ -1,10 +1,8 @@
 package com.sehoon.admintempleteserver.common.pagination;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ReqPagination {
     private int page;
     private int pageSize;

@@ -1,5 +1,6 @@
 package com.sehoon.admintempleteserver.module.sample.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sehoon.admintempleteserver.common.pagination.ReqPagination;
+import com.sehoon.admintempleteserver.common.res.ApiResponse;
 import com.sehoon.admintempleteserver.module.sample.service.SampleService;
+import com.sehoon.admintempleteserver.module.sample.vo.TableItem;
+import com.sehoon.admintempleteserver.module.sample.vo.TableReq;
+import com.sehoon.admintempleteserver.module.sample.vo.TableRes;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,14 +68,14 @@ public class SampleController {
     }
     
     @GetMapping("/dummy/table/list")
-    public ResponseEntity<?> getDummyTableList(
-            @RequestParam int page,
-            @RequestParam int pageSize,
-            @RequestParam(required = false) Integer category,
-            @RequestParam(required = false) String start,
-            @RequestParam(required = false) String end) {
-        ReqPagination pagination = new ReqPagination(page, pageSize);
-        Map<String, Object> result = sampleService.getDummyTableList(pagination, category, start, end);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<ApiResponse<TableRes>> getDummyTableList(
+            @RequestParam TableReq tableReq) {
+        ReqPagination pagination = new ReqPagination(tableReq.getPage(), tableReq.getPageSize());
+        List<TableItem> tables = sampleService.getDummyTableList(pagination, tableReq.getCategory(), tableReq.getStart(), tableReq.getEnd());
+
+        TableRes res = new TableRes();
+        res.setItems(tables);
+        
+        return ResponseEntity.ok().body(ApiResponse.ok(res));
     }
 }

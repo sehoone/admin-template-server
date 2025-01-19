@@ -7,11 +7,14 @@
         SELECT * FROM sehoon.USER_BASE WHERE USER_NO = #{id}
     </select>
 
-    <select id="selectDummyTableList" parameterType="map" resultType="map">
-        SELECT * FROM sehoon.DUMMY_TABLE
+    <select id="selectDummyTableList" parameterType="map" resultType="com.sehoon.admintempleteserver.module.sample.vo.TableItemRes">
+        SELECT 
+            ID, IMAGE_URL, IMAGE_URL2, OPEN, STATUS, PRODUCT_NAME, PRICE, CURRENCY, QUANTITY, AVAILABLE, CATEGORY, RELEASE_DATE, RATING, DESCRIPTION, WEIGHT, COLOR, IN_PRODUCTION
+         FROM sehoon.DUMMY_TABLE
         WHERE (#{category} IS NULL OR CATEGORY = #{category})
         AND (#{start} IS NULL OR DATE >= #{start})
         AND (#{end} IS NULL OR DATE &lt;= #{end})
         LIMIT #{offset}, #{pageSize}
     </select>
 </mapper>
+        
