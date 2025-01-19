@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sehoon.admintempleteserver.common.pagination.ReqPagination;
 import com.sehoon.admintempleteserver.module.sample.service.SampleService;
 
 import lombok.RequiredArgsConstructor;
@@ -59,5 +60,17 @@ public class SampleController {
     @GetMapping("/get-user")
     public Map<String, Object> getSample(@RequestParam int id) {
         return sampleService.getSampleById(1);
+    }
+    
+    @GetMapping("/dummy/table/list")
+    public ResponseEntity<?> getDummyTableList(
+            @RequestParam int page,
+            @RequestParam int pageSize,
+            @RequestParam(required = false) Integer category,
+            @RequestParam(required = false) String start,
+            @RequestParam(required = false) String end) {
+        ReqPagination pagination = new ReqPagination(page, pageSize);
+        Map<String, Object> result = sampleService.getDummyTableList(pagination, category, start, end);
+        return ResponseEntity.ok(result);
     }
 }

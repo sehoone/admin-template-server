@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.sehoon.admintempleteserver.common.pagination.ReqPagination;
 import com.sehoon.admintempleteserver.module.sample.mapper.SampleMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,9 @@ public class SampleService {
     public Map<String, Object> getSampleById(int id) {
         log.debug("getSampleById start");
         return sampleMapper.selectSampleById(id);
+    }
+
+    public Map<String, Object> getDummyTableList(ReqPagination pagination, Integer category, String start, String end) {
+        return sampleMapper.selectDummyTableList(pagination.getOffset(), pagination.getPageSize(), category, start, end);
     }
 }

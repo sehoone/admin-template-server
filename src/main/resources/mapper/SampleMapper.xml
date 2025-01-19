@@ -6,4 +6,12 @@
     <select id="selectSampleById" parameterType="int" resultType="map">
         SELECT * FROM sehoon.USER_BASE WHERE USER_NO = #{id}
     </select>
+
+    <select id="selectDummyTableList" parameterType="map" resultType="map">
+        SELECT * FROM sehoon.DUMMY_TABLE
+        WHERE (#{category} IS NULL OR CATEGORY = #{category})
+        AND (#{start} IS NULL OR DATE >= #{start})
+        AND (#{end} IS NULL OR DATE &lt;= #{end})
+        LIMIT #{offset}, #{pageSize}
+    </select>
 </mapper>
